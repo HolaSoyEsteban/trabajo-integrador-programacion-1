@@ -16,7 +16,7 @@ def limpiar_pantalla():
 def mostrar_menu_principal():
     limpiar_pantalla()
     print(f"{CELESTE}╔════════════════════════════════════════════════════════════════════╗{RESET}")
-    print(f"{CELESTE}║{RESET}  {NEGRITA} BIBLIOTECA POPULAR EL ALJIBE — Sistema de Gestión{RESET}  {CELESTE}║{RESET}")
+    print(f"{CELESTE}║{RESET}  {NEGRITA} BIBLIOTECA POPULAR EL ALJIBE — Sistema de Gestión║{RESET}  {CELESTE}║{RESET}")
     print(f"{CELESTE}╠════════════════════════════════════════════════════════════════════╣{RESET}")
     print(f"{CELESTE}║{RESET}                                                                    {CELESTE}║{RESET}")
     print(f"{CELESTE}║{RESET}   {AMARILLO}1.{RESET} Catálogo de libros                                            {CELESTE}║{RESET}")

@@ -183,7 +183,7 @@ def eliminar_libro():
 def mostrar_menu_libros():
     limpiar_pantalla()
     print(f"{CELESTE}╔════════════════════════════════════════════════════════════════════╗{RESET}")
-    print(f"{CELESTE}║{RESET}  {NEGRITA}CATÁLOGO DE LIBROS — Biblioteca Popular El Aljibe{RESET}{CELESTE}║{RESET}")
+    print(f"{CELESTE}║{RESET}  {NEGRITA}CATÁLOGO DE LIBROS — Biblioteca Popular El Aljibe ║{RESET}{CELESTE}║{RESET}")
     print(f"{CELESTE}╠════════════════════════════════════════════════════════════════════╣{RESET}")
     print(f"{CELESTE}║{RESET}                                                                    {CELESTE}║{RESET}")
     print(f"{CELESTE}║{RESET}   {AMARILLO}1.{RESET} Catálogo completo de libros                                   {CELESTE}║{RESET}")
