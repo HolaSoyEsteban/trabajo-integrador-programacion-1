@@ -1,44 +1,48 @@
-from catalogoDeLibros.catalogo_de_libros import *
+import os
+from catalogoDeLibros.catalogo_de_libros import menu_principal_libros
 
-# Menu principal del programa
+# Colores ANSI para la consola
+RESET = "\033[0m"
+NEGRITA = "\033[1m"
+CELESTE = "\033[1;36m"
+VERDE = "\033[1;32m"
+AMARILLO = "\033[1;33m"
+ROJO = "\033[1;31m"
+GRIS = "\033[90m"
 
-while True:
-    print("----------------------------------------------------------------------\n")
-    print("|           Biblioteca Popular El Aljibe - Sistema v1.0               |\n")
-    print("----------------------------------------------------------------------\n")
-    print("|                                                                     |\n")
-    print("|                     1. Catalogo de libros                           |\n")
-    print("|                     2. Socios                                       |\n")
-    print("|                     3. Préstamos                                    |\n")
-    print("|                     4. Reservas                                     |\n")
-    print("|                     5. Donaciones recibidas                         |\n")
-    print("|                                                                     |\n")
-    print("|                     0. Salir                                        |\n")
-    print("|                                                                     |\n")
-    print("----------------------------------------------------------------------\n")
+def limpiar_pantalla():
+    os.system('cls' if os.name == 'nt' else 'clear')
 
-    opcion_ingresada = input("|                     ¿Qué queres hacer?                              |\n\n")
-    
-    match (opcion_ingresada):
-        case "0":
-            print(f"    Opcion ingresada: --> {opcion_ingresada}\n  ... Saliendo del programa. Hasta luego!\n\n")
+def mostrar_menu_principal():
+    limpiar_pantalla()
+    print(f"{CELESTE}╔════════════════════════════════════════════════════════════════════╗{RESET}")
+    print(f"{CELESTE}║{RESET}  {NEGRITA} BIBLIOTECA POPULAR EL ALJIBE — Sistema de Gestión{RESET}  {CELESTE}║{RESET}")
+    print(f"{CELESTE}╠════════════════════════════════════════════════════════════════════╣{RESET}")
+    print(f"{CELESTE}║{RESET}                                                                    {CELESTE}║{RESET}")
+    print(f"{CELESTE}║{RESET}   {AMARILLO}1.{RESET} Catálogo de libros                                            {CELESTE}║{RESET}")
+    print(f"{CELESTE}║{RESET}   {AMARILLO}2.{RESET} Socios                                                         {CELESTE}║{RESET}")
+    print(f"{CELESTE}║{RESET}   {AMARILLO}3.{RESET} Préstamos                                                      {CELESTE}║{RESET}")
+    print(f"{CELESTE}║{RESET}   {AMARILLO}4.{RESET} Reservas                                                       {CELESTE}║{RESET}")
+    print(f"{CELESTE}║{RESET}   {AMARILLO}5.{RESET} Donaciones recibidas                                           {CELESTE}║{RESET}")
+    print(f"{CELESTE}║{RESET}                                                                    {CELESTE}║{RESET}")
+    print(f"{CELESTE}║{RESET}   {AMARILLO}0.{RESET} Salir del sistema                                              {CELESTE}║{RESET}")
+    print(f"{CELESTE}║{RESET}                                                                    {CELESTE}║{RESET}")
+    print(f"{CELESTE}╚════════════════════════════════════════════════════════════════════╝{RESET}")
+
+def ejecutar_sistema():
+    while True:
+        mostrar_menu_principal()
+        opcion = input(f"\n{AMARILLO}¿Qué querés hacer? (0-5): {RESET}").strip()
+        if opcion == "0":
+            limpiar_pantalla()
+            print(f"\n{VERDE}¡Gracias por usar el sistema! Saliendo del programa. ¡Hasta luego!{RESET}\n")
             break
-        case "1":
-            print(f"    Opcion ingresada: --> {opcion_ingresada}\n")
+        elif opcion == "1":
             menu_principal_libros()
+        elif opcion in ["2", "3", "4", "5"]:
+            input(f"\n{CELESTE}[INFO]{RESET} El módulo '{opcion}' estará disponible próximamente.\nPresione Enter para volver...")
+        else:
+            input(f"\n{ROJO}[ERROR] Opción inválida. Presione Enter para reintentar...{RESET}")
 
-        case "2":
-            print(f"    Opcion ingresada: --> {opcion_ingresada}\n") 
-
-        case "3":
-            print(f"    Opcion ingresada: --> {opcion_ingresada}\n") 
-
-        case "4":
-            print(f"    Opcion ingresada: --> {opcion_ingresada}\n") 
-
-        case "5":
-            print(f"    Opcion ingresada: --> {opcion_ingresada}\n") 
-
-        case _:
-            print(f"    Opcion ingresada: --> {opcion_ingresada}\n") 
-            print("Opcion inválida\n")
+if __name__ == "__main__":
+    ejecutar_sistema()
