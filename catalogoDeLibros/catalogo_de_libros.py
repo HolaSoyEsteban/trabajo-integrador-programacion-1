@@ -27,6 +27,7 @@ lista_libros = [
         "procedencia": "donado por Elsa Morales"
     }
 ]
+
 ultimo_id_libro = 3
 
 def limpiar_pantalla():
@@ -183,18 +184,18 @@ def eliminar_libro():
 def mostrar_menu_libros():
     limpiar_pantalla()
     print(f"{CELESTE}╔════════════════════════════════════════════════════════════════════╗{RESET}")
-    print(f"{CELESTE}║{RESET}  {NEGRITA}CATÁLOGO DE LIBROS — Biblioteca Popular El Aljibe ║{RESET}{CELESTE}║{RESET}")
+    print(f"{CELESTE}║{RESET}  {NEGRITA}CATÁLOGO DE LIBROS — Biblioteca Popular El Aljibe {RESET}{CELESTE}                ║{RESET}")
     print(f"{CELESTE}╠════════════════════════════════════════════════════════════════════╣{RESET}")
     print(f"{CELESTE}║{RESET}                                                                    {CELESTE}║{RESET}")
     print(f"{CELESTE}║{RESET}   {AMARILLO}1.{RESET} Catálogo completo de libros                                   {CELESTE}║{RESET}")
-    print(f"{CELESTE}║{RESET}   {AMARILLO}2.{RESET} Buscar libro                                                   {CELESTE}║{RESET}")
-    print(f"{CELESTE}║{RESET}   {AMARILLO}3.{RESET} Filtrar por estado                                             {CELESTE}║{RESET}")
-    print(f"{CELESTE}║{RESET}   {AMARILLO}4.{RESET} Cargar un libro                                                {CELESTE}║{RESET}")
-    print(f"{CELESTE}║{RESET}   {AMARILLO}5.{RESET} Cambiar estado de libro                                        {CELESTE}║{RESET}")
-    print(f"{CELESTE}║{RESET}   {AMARILLO}6.{RESET} Dar de baja un libro                                           {CELESTE}║{RESET}")
-    print(f"{CELESTE}║{RESET}   {AMARILLO}7.{RESET} Eliminar un libro permanentemente                              {CELESTE}║{RESET}")
+    print(f"{CELESTE}║{RESET}   {AMARILLO}2.{RESET} Buscar libro                                                  {CELESTE}║{RESET}")
+    print(f"{CELESTE}║{RESET}   {AMARILLO}3.{RESET} Filtrar por estado                                            {CELESTE}║{RESET}")
+    print(f"{CELESTE}║{RESET}   {AMARILLO}4.{RESET} Cargar un libro                                               {CELESTE}║{RESET}")
+    print(f"{CELESTE}║{RESET}   {AMARILLO}5.{RESET} Cambiar estado de libro                                       {CELESTE}║{RESET}")
+    print(f"{CELESTE}║{RESET}   {AMARILLO}6.{RESET} Dar de baja un libro                                          {CELESTE}║{RESET}")
+    print(f"{CELESTE}║{RESET}   {AMARILLO}7.{RESET} Eliminar un libro permanentemente                             {CELESTE}║{RESET}")
     print(f"{CELESTE}║{RESET}                                                                    {CELESTE}║{RESET}")
-    print(f"{CELESTE}║{RESET}   {AMARILLO}9.{RESET} Volver al menú principal                                       {CELESTE}║{RESET}")
+    print(f"{CELESTE}║{RESET}   {AMARILLO}9.{RESET} Volver al menú principal                                      {CELESTE}║{RESET}")
     print(f"{CELESTE}║{RESET}                                                                    {CELESTE}║{RESET}")
     print(f"{CELESTE}╚════════════════════════════════════════════════════════════════════╝{RESET}")
 

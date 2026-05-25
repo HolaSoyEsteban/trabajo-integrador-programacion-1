@@ -1,5 +1,6 @@
 import os
 from catalogoDeLibros.catalogo_de_libros import menu_principal_libros
+from socios.socios import menu_principal_socios
 
 # Colores ANSI para la consola
 RESET = "\033[0m"
@@ -16,16 +17,16 @@ def limpiar_pantalla():
 def mostrar_menu_principal():
     limpiar_pantalla()
     print(f"{CELESTE}╔════════════════════════════════════════════════════════════════════╗{RESET}")
-    print(f"{CELESTE}║{RESET}  {NEGRITA} BIBLIOTECA POPULAR EL ALJIBE — Sistema de Gestión║{RESET}  {CELESTE}║{RESET}")
+    print(f"{CELESTE}║{RESET}  {NEGRITA} BIBLIOTECA POPULAR EL ALJIBE — Sistema de Gestión              {RESET}  {CELESTE}║{RESET}")
     print(f"{CELESTE}╠════════════════════════════════════════════════════════════════════╣{RESET}")
     print(f"{CELESTE}║{RESET}                                                                    {CELESTE}║{RESET}")
     print(f"{CELESTE}║{RESET}   {AMARILLO}1.{RESET} Catálogo de libros                                            {CELESTE}║{RESET}")
-    print(f"{CELESTE}║{RESET}   {AMARILLO}2.{RESET} Socios                                                         {CELESTE}║{RESET}")
-    print(f"{CELESTE}║{RESET}   {AMARILLO}3.{RESET} Préstamos                                                      {CELESTE}║{RESET}")
-    print(f"{CELESTE}║{RESET}   {AMARILLO}4.{RESET} Reservas                                                       {CELESTE}║{RESET}")
-    print(f"{CELESTE}║{RESET}   {AMARILLO}5.{RESET} Donaciones recibidas                                           {CELESTE}║{RESET}")
+    print(f"{CELESTE}║{RESET}   {AMARILLO}2.{RESET} Socios                                                        {CELESTE}║{RESET}")
+    print(f"{CELESTE}║{RESET}   {AMARILLO}3.{RESET} Préstamos                                                     {CELESTE}║{RESET}")
+    print(f"{CELESTE}║{RESET}   {AMARILLO}4.{RESET} Reservas                                                      {CELESTE}║{RESET}")
+    print(f"{CELESTE}║{RESET}   {AMARILLO}5.{RESET} Donaciones recibidas                                          {CELESTE}║{RESET}")
     print(f"{CELESTE}║{RESET}                                                                    {CELESTE}║{RESET}")
-    print(f"{CELESTE}║{RESET}   {AMARILLO}0.{RESET} Salir del sistema                                              {CELESTE}║{RESET}")
+    print(f"{CELESTE}║{RESET}   {AMARILLO}0.{RESET} Salir del sistema                                             {CELESTE}║{RESET}")
     print(f"{CELESTE}║{RESET}                                                                    {CELESTE}║{RESET}")
     print(f"{CELESTE}╚════════════════════════════════════════════════════════════════════╝{RESET}")
 
@@ -39,7 +40,9 @@ def ejecutar_sistema():
             break
         elif opcion == "1":
             menu_principal_libros()
-        elif opcion in ["2", "3", "4", "5"]:
+        elif opcion == "2":
+            menu_principal_socios()
+        elif opcion in ["3", "4", "5"]:
             input(f"\n{CELESTE}[INFO]{RESET} El módulo '{opcion}' estará disponible próximamente.\nPresione Enter para volver...")
         else:
             input(f"\n{ROJO}[ERROR] Opción inválida. Presione Enter para reintentar...{RESET}")
