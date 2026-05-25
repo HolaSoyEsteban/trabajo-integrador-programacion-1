@@ -42,8 +42,7 @@ def menu_principal_socios():
         elif opcion == "3":
             registrar_socio()
         elif opcion == "4":
-            #actualizar_datos_contacto()
-            pass
+            actualizar_datos_contacto()
         elif opcion == "5":
             #dar_de_baja_socio()
             pass
@@ -203,3 +202,22 @@ def leer_entero(mensaje):
         if valor.isdigit():
             return int(valor)
         print(f"{ROJO}Error: Por favor, ingrese un número entero válido.{RESET}")
+
+def actualizar_datos_contacto():
+    print(f"\n{CELESTE}--- Actualizar datos de contacto ---{RESET}")
+    socio = obtener_socio_por_indicador("Ingrese DNI, Nombre o N° de carnet del socio: ")
+    if not socio:
+        return
+    
+    print(f"\nModificando datos de: {NEGRITA}{socio['nombre']}{RESET}")
+    print(f"Teléfono actual: {socio['telefono']}")
+    nuevo_tel = input("Nuevo teléfono (Presione Enter para mantener el actual): ").strip()
+    if nuevo_tel:
+        socio["telefono"] = nuevo_tel
+        
+    print(f"Email actual: {socio['email']}")
+    nuevo_email = input("Nuevo email (Presione Enter para mantener el actual / espacio para borrarlo): ")
+    if nuevo_email:
+        socio["email"] = "No posee" if nuevo_email.isspace() else nuevo_email.strip()
+        
+    print(f"\n{VERDE}¡Datos de contacto actualizados con éxito!{RESET}\n")
