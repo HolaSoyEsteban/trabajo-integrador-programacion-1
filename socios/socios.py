@@ -1,4 +1,5 @@
 import os
+from datetime import datetime
 
 # Colores ANSI para la consola
 RESET = "\033[0m"
@@ -39,8 +40,7 @@ def menu_principal_socios():
         elif opcion == "2":
             buscar_socio_detalle()
         elif opcion == "3":
-            #registrar_socio()
-            pass
+            registrar_socio()
         elif opcion == "4":
             #actualizar_datos_contacto()
             pass
@@ -84,6 +84,7 @@ lista_socios = [
     }
 ]
 
+ultimo_carnet = lista_socios[-1]["nro_carnet"] if lista_socios else 0
 
 def mostrar_tabla_socios(socios):
     if not socios:
@@ -159,3 +160,46 @@ def leer_texto_no_vacio(mensaje):
         if valor:
             return valor
         print(f"{ROJO}Error: Este campo no puede quedar vacío.{RESET}")
+
+def registrar_socio():
+    global ultimo_carnet
+    print(f"\n{CELESTE}--- Registrar un nuevo socio ---{RESET}")
+    dni = leer_texto_no_vacio("DNI: ")
+    nombre = leer_texto_no_vacio("Nombre completo: ")
+    telefono = leer_texto_no_vacio("Teléfono de contacto: ")
+    
+    # Manejo del email opcional (pensado para los jubilados)
+    email_input = input("Email (Presione Enter si no posee): ").strip()
+    email = email_input if email_input else "No posee"
+    
+    print("\nCategoría de socio:")
+    categorias = ["general", "jubilado", "estudiante", "infantil"]
+    categoria = seleccionar_opcion_lista("Seleccione la categoría (número): ", categorias)
+    
+    # Captura automática de la fecha actual en formato DD/MM/AAAA
+    fecha_actual = datetime.now().strftime("%d/%m/%Y")
+    
+    ultimo_carnet += 1
+    nuevo_socio = {
+        "nro_carnet": ultimo_carnet, "dni": dni, "nombre": nombre, "telefono": telefono,
+        "email": email, "fecha_alta": fecha_actual, "categoria": categoria, "estado": "activo",
+        "prestamos_actuales": [], "historial_prestamos": []
+    }
+    lista_socios.append(nuevo_socio)
+    print(f"\n{VERDE}¡Socio '{nombre}' registrado con éxito! N° de Carnet asignado: {ultimo_carnet}{RESET}\n")
+
+def seleccionar_opcion_lista(mensaje, opciones):
+    for i, opcion in enumerate(opciones, 1):
+        print(f"  {AMARILLO}{i}.{RESET} {opcion}")
+    while True:
+        opc = leer_entero(mensaje)
+        if 1 <= opc <= len(opciones):
+            return opciones[opc - 1]
+        print(f"{ROJO}Error: Elija una opción entre 1 y {len(opciones)}.{RESET}")
+
+def leer_entero(mensaje):
+    while True:
+        valor = input(mensaje).strip()
+        if valor.isdigit():
+            return int(valor)
+        print(f"{ROJO}Error: Por favor, ingrese un número entero válido.{RESET}")
