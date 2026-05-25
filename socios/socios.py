@@ -37,8 +37,7 @@ def menu_principal_socios():
         elif opcion == "1":
             listar_socios_completo()
         elif opcion == "2":
-            #buscar_socio_detalle()
-            pass
+            buscar_socio_detalle()
         elif opcion == "3":
             #registrar_socio()
             pass
@@ -109,3 +108,54 @@ def mostrar_tabla_socios(socios):
 def listar_socios_completo():
     print(f"\n{CELESTE}--- Listado completo de socios ---{RESET}")
     mostrar_tabla_socios(lista_socios)
+
+def buscar_socio_detalle():
+    print(f"\n{CELESTE}--- Consultar detalle de un socio ---{RESET}")
+    socio = obtener_socio_por_indicador("Ingrese DNI, Nombre o N° de carnet: ")
+    if not socio:
+        return
+    
+    print(f"\n{CELESTE}============ FICHA DEL SOCIO ============{RESET}")
+    print(f"{NEGRITA}N° Carnet:{RESET} {socio['nro_carnet']}")
+    print(f"{NEGRITA}DNI:{RESET} {socio['dni']}")
+    print(f"{NEGRITA}Nombre:{RESET} {socio['nombre']}")
+    print(f"{NEGRITA}Teléfono:{RESET} {socio['telefono']}")
+    print(f"{NEGRITA}Email:{RESET} {socio['email']}")
+    print(f"{NEGRITA}Fecha Alta:{RESET} {socio['fecha_alta']}")
+    print(f"{NEGRITA}Categoría:{RESET} {socio['categoria'].capitalize()}")
+    
+    estado_color = f"{VERDE}Activo{RESET}" if socio['estado'] == "activo" else f"{ROJO}Dado de baja{RESET}"
+    print(f"{NEGRITA}Estado:{RESET} {estado_color}")
+    print(f"{CELESTE}----------------------------------------{RESET}")
+    
+    # Requisito extra: Ver libros prestados e historial
+    print(f"{NEGRITA}Libros prestados actualmente:{RESET}")
+    if socio["prestamos_actuales"]:
+        for libro in socio["prestamos_actuales"]:
+            print(f"  • {libro}")
+    else:
+        print(f"  {GRIS}Ninguno{RESET}")
+        
+    print(f"{NEGRITA}Historial de préstamos pasados:{RESET}")
+    if socio["historial_prestamos"]:
+        for libro in socio["historial_prestamos"]:
+            print(f"  • {libro}")
+    else:
+        print(f"  {GRIS}Sin registros anteriores{RESET}")
+    print(f"{CELESTE}========================================{RESET}\n")
+
+def obtener_socio_por_indicador(mensaje):
+    busqueda = leer_texto_no_vacio(mensaje).lower()
+    for socio in lista_socios:
+        if (busqueda.isdigit() and (socio["nro_carnet"] == int(busqueda) or socio["dni"] == busqueda)) or \
+           (busqueda in socio["nombre"].lower()):
+            return socio
+    print(f"{ROJO}Error: No se encontró ningún socio que coincida con la búsqueda.{RESET}\n")
+    return None
+
+def leer_texto_no_vacio(mensaje):
+    while True:
+        valor = input(mensaje).strip()
+        if valor:
+            return valor
+        print(f"{ROJO}Error: Este campo no puede quedar vacío.{RESET}")
