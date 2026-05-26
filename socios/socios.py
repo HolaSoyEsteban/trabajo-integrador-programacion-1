@@ -44,8 +44,7 @@ def menu_principal_socios():
         elif opcion == "4":
             actualizar_datos_contacto()
         elif opcion == "5":
-            #dar_de_baja_socio()
-            pass
+            dar_de_baja_socio()
         else:
             print(f"\n{ROJO}Opción inválida.{RESET}")
 
@@ -221,3 +220,22 @@ def actualizar_datos_contacto():
         socio["email"] = "No posee" if nuevo_email.isspace() else nuevo_email.strip()
         
     print(f"\n{VERDE}¡Datos de contacto actualizados con éxito!{RESET}\n")
+
+def dar_de_baja_socio():
+    print(f"\n{CELESTE}--- Dar de baja un socio ---{RESET}")
+    socio = obtener_socio_por_indicador("Ingrese DNI, Nombre o N° de carnet del socio a dar de baja: ")
+    if not socio:
+        return
+        
+    if socio["estado"] == "dado de baja":
+        print(f"{ROJO}El socio ya se encuentra dado de baja.{RESET}\n")
+        return
+        
+    print(f"\nSocio seleccionado: {NEGRITA}'{socio['nombre']}'{RESET} (Categoría: {socio['categoria']})")
+    print(f"{AMARILLO}Motivo sugerido: Solicitud personal o inactividad mayor a 2 años.{RESET}")
+    confirmar = input(f"{ROJO}¿Está seguro de que desea dar de baja a este socio? (s/n): {RESET}").strip().lower()
+    if confirmar == 's':
+        socio["estado"] = "dado de baja"
+        print(f"{VERDE}¡Socio dado de baja con éxito!{RESET}\n")
+    else:
+        print(f"Operación cancelada.\n")
