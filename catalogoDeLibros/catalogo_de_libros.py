@@ -30,24 +30,24 @@ lista_libros = [
 
 ultimo_id_libro = 3
 
-def limpiar_pantalla():
+def limpiar_pantalla(): # Limpia la terminal según el sistema operativo (Windows o Unix)
     os.system('cls' if os.name == 'nt' else 'clear')
 
-def leer_entero(mensaje):
+def leer_entero(mensaje): # Pide un número entero al usuario y valida que sea correcto
     while True:
         valor = input(mensaje).strip()
         if valor.isdigit():
             return int(valor)
         print(f"{ROJO}Error: Por favor, ingrese un número entero válido.{RESET}")
 
-def leer_texto_no_vacio(mensaje):
+def leer_texto_no_vacio(mensaje): # Pide un texto al usuario y valida que no esté vacío
     while True:
         valor = input(mensaje).strip()
         if valor:
             return valor
         print(f"{ROJO}Error: Este campo no puede quedar vacío.{RESET}")
 
-def seleccionar_opcion_lista(mensaje, opciones):
+def seleccionar_opcion_lista(mensaje, opciones): # Muestra una lista de opciones y valida la selección del usuario
     for i, opcion in enumerate(opciones, 1):
         print(f"  {AMARILLO}{i}.{RESET} {opcion}")
     while True:
@@ -56,7 +56,7 @@ def seleccionar_opcion_lista(mensaje, opciones):
             return opciones[opc - 1]
         print(f"{ROJO}Error: Elija una opción entre 1 y {len(opciones)}.{RESET}")
 
-def mostrar_tabla_libros(libros):
+def mostrar_tabla_libros(libros): # Muestra los libros en una tabla con diseño y colores por estado
     if not libros:
         print(f"\n{ROJO}No se encontraron libros para mostrar.{RESET}\n")
         return
@@ -80,7 +80,7 @@ def mostrar_tabla_libros(libros):
         print(f"{l['id']:<5} | {t_c:<30} | {a_c:<25} | {l['genero']:<12} | {l['anio_publicacion']:<6} | {est_col} | {l['procedencia']}")
     print(border + "\n")
 
-def cargar_libro():
+def cargar_libro(): # Registra un nuevo libro en el sistema pidiendo sus datos
     global ultimo_id_libro
     print(f"\n{CELESTE}--- Cargar un nuevo libro ---{RESET}")
     titulo = leer_texto_no_vacio("Título: ")
@@ -101,11 +101,11 @@ def cargar_libro():
     lista_libros.append(nuevo_libro)
     print(f"\n{VERDE}¡Libro '{titulo}' cargado con éxito! ID asignado: {ultimo_id_libro}{RESET}\n")
 
-def listar_libros_completo():
+def listar_libros_completo(): # Muestra la lista de todos los libros del catálogo
     print(f"\n{CELESTE}--- Catálogo completo de libros ---{RESET}")
     mostrar_tabla_libros(lista_libros)
 
-def filtrar_libros_por_estado():
+def filtrar_libros_por_estado(): # Filtra y muestra los libros según el estado seleccionado
     print(f"\n{CELESTE}Filtrar por estado:{RESET}")
     estados = ["disponible", "prestado", "en reparación", "dado de baja"]
     estado_filtro = seleccionar_opcion_lista("Seleccione el estado (número): ", estados)
@@ -113,7 +113,7 @@ def filtrar_libros_por_estado():
     print(f"\n{CELESTE}--- Libros con estado '{estado_filtro}' ---{RESET}")
     mostrar_tabla_libros(libros_filtrados)
 
-def buscar_libro():
+def buscar_libro(): # Busca libros por ID, título o autor (búsqueda parcial e insensible)
     print(f"\n{CELESTE}--- Buscar libro ---{RESET}")
     busq = leer_texto_no_vacio("Ingrese título, autor o número de inventario (ID): ").lower()
     resultados = []
@@ -125,7 +125,7 @@ def buscar_libro():
     print(f"\n{CELESTE}--- Resultados de la búsqueda: '{busq}' ---{RESET}")
     mostrar_tabla_libros(resultados)
 
-def obtener_libro_por_id(mensaje):
+def obtener_libro_por_id(mensaje): # Busca y retorna un libro por su ID; retorna None si no existe
     id_buscado = leer_entero(mensaje)
     for l in lista_libros:
         if l["id"] == id_buscado:
@@ -133,7 +133,7 @@ def obtener_libro_por_id(mensaje):
     print(f"{ROJO}Error: No se encontró ningún libro con el ID {id_buscado}.{RESET}\n")
     return None
 
-def cambiar_estado_libro():
+def cambiar_estado_libro(): # Permite modificar el estado de disponibilidad o conservación de un libro
     print(f"\n{CELESTE}--- Cambiar estado de libro ---{RESET}")
     libro = obtener_libro_por_id("Ingrese el ID del libro a modificar: ")
     if not libro:
@@ -149,7 +149,7 @@ def cambiar_estado_libro():
     else:
         print(f"{AMARILLO}Cambio cancelado.{RESET}\n")
 
-def dar_de_baja_libro():
+def dar_de_baja_libro(): # Cambia el estado de un libro a 'dado de baja' (baja lógica)
     print(f"\n{CELESTE}--- Dar de baja un libro ---{RESET}")
     libro = obtener_libro_por_id("Ingrese el ID del libro a dar de baja: ")
     if not libro:
@@ -165,7 +165,7 @@ def dar_de_baja_libro():
     else:
         print(f"{AMARILLO}Operación cancelada.{RESET}\n")
 
-def eliminar_libro():
+def eliminar_libro(): # Borra permanentemente un libro de la lista con doble confirmación
     print(f"\n{CELESTE}--- Eliminar un libro permanentemente ---{RESET}")
     libro = obtener_libro_por_id("Ingrese el ID del libro a eliminar: ")
     if not libro:
@@ -181,7 +181,7 @@ def eliminar_libro():
             return
     print(f"{AMARILLO}Eliminación cancelada.{RESET}\n")
 
-def mostrar_menu_libros():
+def mostrar_menu_libros(): # Imprime en pantalla el diseño del menú del catálogo
     limpiar_pantalla()
     print(f"{CELESTE}╔════════════════════════════════════════════════════════════════════╗{RESET}")
     print(f"{CELESTE}║{RESET}  {NEGRITA}CATÁLOGO DE LIBROS — Biblioteca Popular El Aljibe {RESET}{CELESTE}                ║{RESET}")
@@ -199,7 +199,7 @@ def mostrar_menu_libros():
     print(f"{CELESTE}║{RESET}                                                                    {CELESTE}║{RESET}")
     print(f"{CELESTE}╚════════════════════════════════════════════════════════════════════╝{RESET}")
 
-def menu_principal_libros():
+def menu_principal_libros(): # Bucle principal que gestiona la navegación e interacción del menú
     while True:
         mostrar_menu_libros()
         opc = input(f"\n{AMARILLO}¿Qué querés hacer? (1-7, 9): {RESET}").strip()

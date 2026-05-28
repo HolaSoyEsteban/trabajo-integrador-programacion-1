@@ -152,3 +152,7 @@ Thumbs.db
 .idea/
 *.swp
 *.swo
+
+# Cátedra
+catedra/*.pdf
+
