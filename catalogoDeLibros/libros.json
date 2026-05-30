@@ -1,0 +1,29 @@
+[
+    {
+        "id": 1,
+        "titulo": "Cien años de soledad",
+        "autor": "Gabriel García Márquez",
+        "genero": "novela",
+        "anio_publicacion": 1967,
+        "estado": "disponible",
+        "procedencia": "donado por escuela N°4"
+    },
+    {
+        "id": 2,
+        "titulo": "El Aleph",
+        "autor": "Jorge Luis Borges",
+        "genero": "cuento",
+        "anio_publicacion": 1949,
+        "estado": "disponible",
+        "procedencia": "comprado"
+    },
+    {
+        "id": 3,
+        "titulo": "Rayuela",
+        "autor": "Julio Cortázar",
+        "genero": "novela",
+        "anio_publicacion": 1963,
+        "estado": "prestado",
+        "procedencia": "donado por Elsa Morales"
+    }
+]

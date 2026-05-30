@@ -1,4 +1,5 @@
 import os
+import json
 
 # Colores ANSI para la consola
 RESET = "\033[0m"
@@ -8,6 +9,9 @@ VERDE = "\033[1;32m"
 AMARILLO = "\033[1;33m"
 ROJO = "\033[1;31m"
 GRIS = "\033[90m"
+
+# Ruta para el almacenamiento persistente
+RUTA_JSON_LIBROS = os.path.join(os.path.dirname(__file__), "libros.json")
 
 # Inicialización de datos semilla
 lista_libros = [
@@ -29,6 +33,34 @@ lista_libros = [
 ]
 
 ultimo_id_libro = 3
+
+def guardar_libros_json(): # Guarda la lista de libros en formato JSON
+    try:
+        with open(RUTA_JSON_LIBROS, "w", encoding="utf-8") as f:
+            json.dump(lista_libros, f, ensure_ascii=False, indent=4)
+    except Exception as e:
+        print(f"{ROJO}Error al guardar libros en archivo: {e}{RESET}")
+
+def cargar_libros_json(): # Carga los libros desde el JSON o crea el archivo inicial si no existe
+    global lista_libros, ultimo_id_libro
+    if not os.path.exists(RUTA_JSON_LIBROS):
+        guardar_libros_json()
+        return
+    try:
+        with open(RUTA_JSON_LIBROS, "r", encoding="utf-8") as f:
+            datos = json.load(f)
+            if isinstance(datos, list):
+                lista_libros = datos
+                if lista_libros:
+                    ultimo_id_libro = max(l["id"] for l in lista_libros)
+                else:
+                    ultimo_id_libro = 0
+    except Exception as e:
+        print(f"{ROJO}Error al cargar libros desde JSON: {e}{RESET}")
+
+# Cargar datos al importar el módulo
+cargar_libros_json()
+
 
 def limpiar_pantalla(): # Limpia la terminal según el sistema operativo (Windows o Unix)
     os.system('cls' if os.name == 'nt' else 'clear')
@@ -99,6 +131,7 @@ def cargar_libro(): # Registra un nuevo libro en el sistema pidiendo sus datos
         "anio_publicacion": anio, "estado": "disponible", "procedencia": procedencia
     }
     lista_libros.append(nuevo_libro)
+    guardar_libros_json()
     print(f"\n{VERDE}¡Libro '{titulo}' cargado con éxito! ID asignado: {ultimo_id_libro}{RESET}\n")
 
 def listar_libros_completo(): # Muestra la lista de todos los libros del catálogo
@@ -145,6 +178,7 @@ def cambiar_estado_libro(): # Permite modificar el estado de disponibilidad o co
     confirmar = input(f"¿Confirmar cambio a '{nuevo_estado}'? (s/n): ").strip().lower()
     if confirmar == 's':
         libro["estado"] = nuevo_estado
+        guardar_libros_json()
         print(f"{VERDE}¡Estado actualizado con éxito!{RESET}\n")
     else:
         print(f"{AMARILLO}Cambio cancelado.{RESET}\n")
@@ -161,6 +195,7 @@ def dar_de_baja_libro(): # Cambia el estado de un libro a 'dado de baja' (baja l
     confirmar = input(f"{ROJO}¿Está seguro de que desea dar de baja este libro? (s/n): {RESET}").strip().lower()
     if confirmar == 's':
         libro["estado"] = "dado de baja"
+        guardar_libros_json()
         print(f"{VERDE}¡Libro dado de baja con éxito!{RESET}\n")
     else:
         print(f"{AMARILLO}Operación cancelada.{RESET}\n")
@@ -177,6 +212,7 @@ def eliminar_libro(): # Borra permanentemente un libro de la lista con doble con
         confirmar_doble = input(f"¿REALMENTE seguro? Ingrese {ROJO}'ELIMINAR'{RESET} para confirmar: ").strip()
         if confirmar_doble == "ELIMINAR":
             lista_libros.remove(libro)
+            guardar_libros_json()
             print(f"{VERDE}¡Registro eliminado permanentemente del sistema!{RESET}\n")
             return
     print(f"{AMARILLO}Eliminación cancelada.{RESET}\n")

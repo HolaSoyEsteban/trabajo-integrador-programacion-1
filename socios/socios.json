@@ -1,0 +1,60 @@
+[
+    {
+        "nro_carnet": 1,
+        "dni": "14234567",
+        "nombre": "Alberto Gómez",
+        "telefono": "11-4444-5555",
+        "email": "No posee",
+        "fecha_alta": "22/05/2026",
+        "categoria": "jubilado",
+        "estado": "activo",
+        "prestamos_actuales": [
+            "Cien años de soledad"
+        ],
+        "historial_prestamos": [
+            "Cien años de soledad",
+            "El Aleph"
+        ]
+    },
+    {
+        "nro_carnet": 2,
+        "dni": "45123890",
+        "nombre": "Martina Rodríguez",
+        "telefono": "3442-654321",
+        "email": "martina@email.com",
+        "fecha_alta": "23/05/2026",
+        "categoria": "estudiante",
+        "estado": "activo",
+        "prestamos_actuales": [],
+        "historial_prestamos": [
+            "Rayuela"
+        ]
+    },
+    {
+        "nro_carnet": 3,
+        "dni": "28456123",
+        "nombre": "Carlos Pérez",
+        "telefono": "11-9876-5432",
+        "email": "carlos.perez@email.com",
+        "fecha_alta": "24/05/2026",
+        "categoria": "general",
+        "estado": "dado de baja",
+        "prestamos_actuales": [],
+        "historial_prestamos": []
+    },
+    {
+        "nro_carnet": 4,
+        "dni": "78789789",
+        "nombre": "Morgan Stark",
+        "telefono": "11-0000-0000",
+        "email": "morganstark@email.com",
+        "fecha_alta": "25/05/2026",
+        "categoria": "infantil",
+        "estado": "activo",
+        "prestamos_actuales": [
+            "Drácula",
+            "Frankenstein"
+        ],
+        "historial_prestamos": []
+    }
+]

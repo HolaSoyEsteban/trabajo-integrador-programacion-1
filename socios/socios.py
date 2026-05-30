@@ -1,4 +1,5 @@
 import os
+import json
 from datetime import datetime
 
 # Colores ANSI para la consola
@@ -10,10 +11,13 @@ AMARILLO = "\033[1;33m"
 ROJO = "\033[1;31m"
 GRIS = "\033[90m"
 
-def limpiar_pantalla():
+# Ruta para el almacenamiento persistente
+RUTA_JSON_SOCIOS = os.path.join(os.path.dirname(__file__), "socios.json")
+
+def limpiar_pantalla(): # Limpia la terminal según el sistema operativo
     os.system('cls' if os.name == 'nt' else 'clear')
 
-def mostrar_menu_socios():
+def mostrar_menu_socios(): # Muestra las opciones del menú de socios
     limpiar_pantalla()
     print(f"{CELESTE}╔════════════════════════════════════════════════════════════════════╗{RESET}")
     print(f"{CELESTE}║{RESET}  {NEGRITA}GESTIÓN DE SOCIOS — Biblioteca Popular El Aljibe  {RESET}{CELESTE}                ║{RESET}")
@@ -29,7 +33,7 @@ def mostrar_menu_socios():
     print(f"{CELESTE}║{RESET}                                                                    {CELESTE}║{RESET}")
     print(f"{CELESTE}╚════════════════════════════════════════════════════════════════════╝{RESET}")
 
-def menu_principal_socios():
+def menu_principal_socios(): # Bucle de control del menú de socios
     while True:
         mostrar_menu_socios()
         opcion = input(f"\n{AMARILLO}¿Qué querés hacer? (1-5, 9): {RESET}").strip()
@@ -50,7 +54,7 @@ def menu_principal_socios():
 
         input(f"\n{GRIS}Presione Enter para continuar...{RESET}")
 
-# Lista de socios hasta tener el archivo JSON con los datos
+# Lista de socios semilla por defecto
 lista_socios = [
     {
         "nro_carnet": 1, "dni": "14234567", "nombre": "Alberto Gómez",
@@ -82,9 +86,37 @@ lista_socios = [
     }
 ]
 
-ultimo_carnet = lista_socios[-1]["nro_carnet"] if lista_socios else 0
+ultimo_carnet = 4
 
-def mostrar_tabla_socios(socios):
+def guardar_socios_json(): # Guarda la lista de socios en formato JSON
+    try:
+        with open(RUTA_JSON_SOCIOS, "w", encoding="utf-8") as f:
+            json.dump(lista_socios, f, ensure_ascii=False, indent=4)
+    except Exception as e:
+        print(f"{ROJO}Error al guardar socios en archivo: {e}{RESET}")
+
+def cargar_socios_json(): # Carga los socios desde el JSON o crea el archivo inicial si no existe
+    global lista_socios, ultimo_carnet
+    if not os.path.exists(RUTA_JSON_SOCIOS):
+        guardar_socios_json()
+        return
+    try:
+        with open(RUTA_JSON_SOCIOS, "r", encoding="utf-8") as f:
+            datos = json.load(f)
+            if isinstance(datos, list):
+                lista_socios = datos
+                if lista_socios:
+                    ultimo_carnet = max(s["nro_carnet"] for s in lista_socios)
+                else:
+                    ultimo_carnet = 0
+    except Exception as e:
+        print(f"{ROJO}Error al cargar socios desde JSON: {e}{RESET}")
+
+# Cargar datos al importar el módulo
+cargar_socios_json()
+
+
+def mostrar_tabla_socios(socios): # Dibuja una tabla estilizada en la consola con la lista de socios
     if not socios:
         print(f"\n{ROJO}No se encontraron socios para mostrar.{RESET}\n")
         return
@@ -104,11 +136,11 @@ def mostrar_tabla_socios(socios):
         print(f"{socio['nro_carnet']:<8} | {socio['dni']:<10} | {nombre_completo:<25} | {socio['telefono']:<15} | {socio['categoria']:<12} | {socio['fecha_alta']:<12} | {estado_color}")
     print(border + "\n")
 
-def listar_socios_completo():
+def listar_socios_completo(): # Imprime en pantalla el listado de todos los socios
     print(f"\n{CELESTE}--- Listado completo de socios ---{RESET}")
     mostrar_tabla_socios(lista_socios)
 
-def buscar_socio_detalle():
+def buscar_socio_detalle(): # Busca un socio y muestra su ficha detallada e historial de lecturas
     print(f"\n{CELESTE}--- Consultar detalle de un socio ---{RESET}")
     socio = obtener_socio_por_indicador("Ingrese DNI, Nombre o N° de carnet: ")
     if not socio:
@@ -143,7 +175,7 @@ def buscar_socio_detalle():
         print(f"  {GRIS}Sin registros anteriores{RESET}")
     print(f"{CELESTE}========================================{RESET}\n")
 
-def obtener_socio_por_indicador(mensaje):
+def obtener_socio_por_indicador(mensaje): # Busca y retorna el objeto socio por DNI, nombre o carnet
     busqueda = leer_texto_no_vacio(mensaje).lower()
     for socio in lista_socios:
         if (busqueda.isdigit() and (socio["nro_carnet"] == int(busqueda) or socio["dni"] == busqueda)) or \
@@ -152,14 +184,14 @@ def obtener_socio_por_indicador(mensaje):
     print(f"{ROJO}Error: No se encontró ningún socio que coincida con la búsqueda.{RESET}\n")
     return None
 
-def leer_texto_no_vacio(mensaje):
+def leer_texto_no_vacio(mensaje): # Solicita y valida que la entrada de texto no sea vacía
     while True:
         valor = input(mensaje).strip()
         if valor:
             return valor
         print(f"{ROJO}Error: Este campo no puede quedar vacío.{RESET}")
 
-def registrar_socio():
+def registrar_socio(): # Registra un nuevo socio y genera su número de carnet secuencial
     global ultimo_carnet
     print(f"\n{CELESTE}--- Registrar un nuevo socio ---{RESET}")
     dni = leer_texto_no_vacio("DNI: ")
@@ -184,9 +216,10 @@ def registrar_socio():
         "prestamos_actuales": [], "historial_prestamos": []
     }
     lista_socios.append(nuevo_socio)
+    guardar_socios_json()
     print(f"\n{VERDE}¡Socio '{nombre}' registrado con éxito! N° de Carnet asignado: {ultimo_carnet}{RESET}\n")
 
-def seleccionar_opcion_lista(mensaje, opciones):
+def seleccionar_opcion_lista(mensaje, opciones): # Muestra y valida una selección numérica de una lista de opciones
     for i, opcion in enumerate(opciones, 1):
         print(f"  {AMARILLO}{i}.{RESET} {opcion}")
     while True:
@@ -195,14 +228,14 @@ def seleccionar_opcion_lista(mensaje, opciones):
             return opciones[opc - 1]
         print(f"{ROJO}Error: Elija una opción entre 1 y {len(opciones)}.{RESET}")
 
-def leer_entero(mensaje):
+def leer_entero(mensaje): # Solicita y valida que el valor ingresado sea un número entero
     while True:
         valor = input(mensaje).strip()
         if valor.isdigit():
             return int(valor)
         print(f"{ROJO}Error: Por favor, ingrese un número entero válido.{RESET}")
 
-def actualizar_datos_contacto():
+def actualizar_datos_contacto(): # Modifica el teléfono o el email de un socio existente
     print(f"\n{CELESTE}--- Actualizar datos de contacto ---{RESET}")
     socio = obtener_socio_por_indicador("Ingrese DNI, Nombre o N° de carnet del socio: ")
     if not socio:
@@ -219,9 +252,10 @@ def actualizar_datos_contacto():
     if nuevo_email:
         socio["email"] = "No posee" if nuevo_email.isspace() else nuevo_email.strip()
         
+    guardar_socios_json()
     print(f"\n{VERDE}¡Datos de contacto actualizados con éxito!{RESET}\n")
 
-def dar_de_baja_socio():
+def dar_de_baja_socio(): # Realiza la baja lógica de un socio cambiando su estado a inactivo
     print(f"\n{CELESTE}--- Dar de baja un socio ---{RESET}")
     socio = obtener_socio_por_indicador("Ingrese DNI, Nombre o N° de carnet del socio a dar de baja: ")
     if not socio:
@@ -236,6 +270,7 @@ def dar_de_baja_socio():
     confirmar = input(f"{ROJO}¿Está seguro de que desea dar de baja a este socio? (s/n): {RESET}").strip().lower()
     if confirmar == 's':
         socio["estado"] = "dado de baja"
+        guardar_socios_json()
         print(f"{VERDE}¡Socio dado de baja con éxito!{RESET}\n")
     else:
         print(f"Operación cancelada.\n")
