@@ -6,8 +6,9 @@
         "telefono": "11-4444-5555",
         "email": "No posee",
         "fecha_alta": "22/05/2026",
+        "ultima_visita": "22/05/2025",
         "categoria": "jubilado",
-        "estado": "activo",
+        "estado": "dado de baja",
         "prestamos_actuales": [
             "Cien años de soledad"
         ],
@@ -23,6 +24,7 @@
         "telefono": "3442-654321",
         "email": "martina@email.com",
         "fecha_alta": "23/05/2026",
+        "ultima_visita": "22/04/2025",
         "categoria": "estudiante",
         "estado": "activo",
         "prestamos_actuales": [],
@@ -36,9 +38,10 @@
         "nombre": "Carlos Pérez",
         "telefono": "11-9876-5432",
         "email": "carlos.perez@email.com",
-        "fecha_alta": "24/05/2026",
+        "fecha_alta": "24/05/2023",
+        "ultima_visita": "22/04/2024",
         "categoria": "general",
-        "estado": "dado de baja",
+        "estado": "activo",
         "prestamos_actuales": [],
         "historial_prestamos": []
     },
@@ -49,12 +52,39 @@
         "telefono": "11-0000-0000",
         "email": "morganstark@email.com",
         "fecha_alta": "25/05/2026",
+        "ultima_visita": "22/02/2025",
         "categoria": "infantil",
         "estado": "activo",
         "prestamos_actuales": [
             "Drácula",
             "Frankenstein"
         ],
+        "historial_prestamos": []
+    },
+    {
+        "nro_carnet": 5,
+        "dni": "78789780",
+        "nombre": "Pepe Argento",
+        "telefono": "11-0000-0002",
+        "email": "pepeargentok@email.com",
+        "fecha_alta": "25/05/2022",
+        "ultima_visita": "22/02/2022",
+        "categoria": "general",
+        "estado": "activo",
+        "prestamos_actuales": [],
+        "historial_prestamos": []
+    },
+    {
+        "nro_carnet": 6,
+        "dni": "78789781",
+        "nombre": "Silvester Stallone",
+        "telefono": "11-0000-0001",
+        "email": "silvesterstallone@email.com",
+        "fecha_alta": "25/05/2020",
+        "ultima_visita": "22/02/2021",
+        "categoria": "general",
+        "estado": "activo",
+        "prestamos_actuales": [],
         "historial_prestamos": []
     }
 ]
