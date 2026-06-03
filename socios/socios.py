@@ -51,7 +51,8 @@ def mostrar_tabla_socios(socios):
     if not socios:
         print(f"\n{ROJO}No se encontraron socios para mostrar.{RESET}\n")
         return
-    border = f"{CELESTE}" + "-" * 115 + f"{RESET}"
+    border = f"{CELESTE}" + "-" * 127 + f"{RESET}"
+
     print(border)
     print(f"{NEGRITA}{'Carnet':<8} | {'DNI':<10} | {'Nombre Completo':<25} | {'Teléfono':<15} | {'Categoría':<12} | {'Alta':<12} | {'Ult. visita':<12} | {'Estado'}{RESET}")
     print(border)

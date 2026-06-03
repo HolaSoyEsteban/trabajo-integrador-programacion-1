@@ -41,7 +41,7 @@
         "fecha_alta": "24/05/2023",
         "ultima_visita": "22/04/2024",
         "categoria": "general",
-        "estado": "activo",
+        "estado": "dado de baja",
         "prestamos_actuales": [],
         "historial_prestamos": []
     },
@@ -70,7 +70,7 @@
         "fecha_alta": "25/05/2022",
         "ultima_visita": "22/02/2022",
         "categoria": "general",
-        "estado": "activo",
+        "estado": "dado de baja",
         "prestamos_actuales": [],
         "historial_prestamos": []
     },
@@ -83,7 +83,7 @@
         "fecha_alta": "25/05/2020",
         "ultima_visita": "22/02/2021",
         "categoria": "general",
-        "estado": "activo",
+        "estado": "dado de baja",
         "prestamos_actuales": [],
         "historial_prestamos": []
     }
